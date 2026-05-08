@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, ArrowRight, CheckCircle2, ClipboardCheck } from "lucide-react";
+import { ArrowLeft, CheckCircle2, ClipboardCheck } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import type { Audit, Category, Question, ResponseRow } from "@/lib/types";
 import { BrandLogo } from "@/components/brand-logo";
@@ -30,6 +30,7 @@ export function QuestionnaireLayout({
   );
   const [isFinalizing, setIsFinalizing] = useState(false);
   const timers = useRef<Record<number, ReturnType<typeof setTimeout>>>({});
+  const advanceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const orderedCategories = categories
     .slice()
@@ -70,6 +71,7 @@ export function QuestionnaireLayout({
   useEffect(() => {
     return () => {
       Object.values(timers.current).forEach(clearTimeout);
+      if (advanceTimer.current) clearTimeout(advanceTimer.current);
     };
   }, []);
 
@@ -86,6 +88,17 @@ export function QuestionnaireLayout({
 
   function saveAnswer(questionId: number, coef: number) {
     setAnswers((current) => ({ ...current, [questionId]: coef }));
+    if (advanceTimer.current) clearTimeout(advanceTimer.current);
+
+    const answeredQuestionIndex = orderedQuestions.findIndex(
+      (question) => question.id === questionId,
+    );
+    if (answeredQuestionIndex >= 0 && answeredQuestionIndex < orderedQuestions.length - 1) {
+      advanceTimer.current = setTimeout(() => {
+        goToQuestion(answeredQuestionIndex + 1);
+      }, 220);
+    }
+
     clearTimeout(timers.current[questionId]);
     timers.current[questionId] = setTimeout(async () => {
       const supabase = createClient();
@@ -230,40 +243,14 @@ export function QuestionnaireLayout({
                   questionNumber={currentQuestionIndex + 1}
                   totalQuestions={orderedQuestions.length}
                 />
-                <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <div className="mt-6 flex justify-start">
                   <Button
                     variant="ghost"
                     disabled={currentQuestionIndex <= 0}
                     onClick={() => goToQuestion(currentQuestionIndex - 1)}
                     className="justify-center"
                   >
-                    <ArrowLeft size={18} /> Precedente
-                  </Button>
-                  <div className="flex items-center justify-center gap-2">
-                    {orderedQuestions.map((question, index) => (
-                      <button
-                        key={question.id}
-                        type="button"
-                        aria-label={`Aller a la question ${index + 1}`}
-                        onClick={() => goToQuestion(index)}
-                        className={cn(
-                          "h-2.5 rounded-full transition-all",
-                          index === currentQuestionIndex
-                            ? "w-8 bg-primary"
-                            : answers[question.id]
-                              ? "w-2.5 bg-accent"
-                              : "w-2.5 bg-primary/20",
-                        )}
-                      />
-                    ))}
-                  </div>
-                  <Button
-                    variant={answers[currentQuestion.id] ? "primary" : "ghost"}
-                    disabled={currentQuestionIndex >= orderedQuestions.length - 1}
-                    onClick={() => goToQuestion(currentQuestionIndex + 1)}
-                    className="justify-center"
-                  >
-                    Suivante <ArrowRight size={18} />
+                    <ArrowLeft size={18} /> Retour
                   </Button>
                 </div>
               </>
