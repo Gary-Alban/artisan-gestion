@@ -1,0 +1,168 @@
+@import "tailwindcss";
+
+:root {
+  --primary: #0f2640;
+  --accent: #d4ac45;
+  --teal: #1a7a6e;
+  --teal-light: #2dbda8;
+  --background: #f8f0e0;
+  --page: #f4f1eb;
+  --secondary: #4a5568;
+  --foreground: #0f172a;
+  --font-dm-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-playfair: Georgia, "Times New Roman", serif;
+}
+
+@theme inline {
+  --color-primary: var(--primary);
+  --color-accent: var(--accent);
+  --color-teal: var(--teal);
+  --color-teal-light: var(--teal-light);
+  --color-background: var(--background);
+  --color-page: var(--page);
+  --color-secondary: var(--secondary);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-dm-sans);
+  --font-serif: var(--font-playfair);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--page);
+  color: var(--foreground);
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes reveal-soft {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes float-soft {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes timeline-progress {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scaleX(0.08);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+@keyframes timeline-progress-mobile {
+  0%,
+  100% {
+    opacity: 0.5;
+    transform: scaleY(0.08);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+.animate-reveal-up {
+  animation: reveal-up 700ms ease-out both;
+}
+
+.animate-reveal-soft {
+  animation: reveal-soft 700ms ease-out both;
+}
+
+.animate-float-soft {
+  animation: float-soft 5s ease-in-out infinite;
+}
+
+.animate-timeline-progress {
+  animation: timeline-progress-mobile 4.8s ease-in-out infinite;
+  transform-origin: top;
+}
+
+.animation-delay-100 {
+  animation-delay: 100ms;
+}
+
+.animation-delay-200 {
+  animation-delay: 200ms;
+}
+
+.animation-delay-300 {
+  animation-delay: 300ms;
+}
+
+.animation-delay-400 {
+  animation-delay: 400ms;
+}
+
+.animation-delay-500 {
+  animation-delay: 500ms;
+}
+
+@media (min-width: 768px) {
+  .animate-timeline-progress {
+    animation-name: timeline-progress;
+    transform-origin: left;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 1ms !important;
+  }
+}

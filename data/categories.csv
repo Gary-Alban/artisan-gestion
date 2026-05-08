@@ -1,0 +1,7 @@
+slug,name,display_order,weight_percent,description
+marche_zone,Marché & Zone,1,15,
+analyse_financiere,Analyse Financière,2,25,
+ressources_humaines,Ressources Humaines,3,20,
+administratif_contrats,Administratif & Contrats,4,5,
+materiel_production,Matériel & Production,5,15,
+locaux_securite_hygiene,"Locaux, Sécurité & Hygiène",6,20,

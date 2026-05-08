@@ -1,0 +1,124 @@
+Question,Catégorie,Poids_question_sur_10,Niveau_risque_1_a_5,Explication
+🎯 Avez-vous réalisé une étude de marché via un professionnel ?,marche_zone,10,,Pas de marché = Pas de chiffre d'affaires. Une mauvaise étude de marché peut facilement impacter votre prévisionnel de CA entre 5 à 20% !
+📍 Êtes-vous sur un emplacement nº1 ?,marche_zone,8,,"L'emplacement est primordial pour réaliser votre chiffre d'affaires.  Il y a 3 types d'emplacements : nº1, 1bis ou nº2 (à définir lors de votre étude de marché)"
+🅿️ L'emplacement dispose-t-il de places de parking ?,marche_zone,6,,"""No Parking, No Business"", Bernardo Trujilo. En zone piétone la logique est différente."
+📢 Le fonds de commerce a-t-il bonne réputation ?,marche_zone,5,,"Bonne réputation = devoir la maintenir et risque de décevoir les clients fidèles. 
+Mauvaise réputation = Opportunité d'amélioration mais risque de ne pas attirer les clients.
+Vous devez également analyser la réputation numérique du fonds (avis google, commentaires Facebook etc)>"
+Connaissez-vous vos avantages concurrentiels ?,marche_zone,7,,"Vous devez maîtriser votre marché, connaître vos concurrents et savoir ce qui vous démarque. "
+"Êtes-vous natif de votre marché, de votre zone ?",marche_zone,3,,Cela peut avoir un impact fort sur votre CA (environ 20 à 30% du CA).
+Existe-t-il un lien affectif avec la clientèle et le dirigeant et/ou certains salariés ?,marche_zone,3,,"La perte de clientèle lors d'une reprise est normale (environ 15 à 30%, souvent compensée par une nouvelle clientèle) mais elle est d'autant plus importante si un lien fort existe entre le dirigeant/certains salariés et la clientèle."
+🚶 Avez-vous analysé la répartition horaire du flux de visiteurs au cours d'une journée ?,marche_zone,2,,"Nous vous conseillons d'observer sur 1 ou 2 jours le flux de visiteurs pour identifier la typologie de clientèle et ses habitudes. Il est important de connaître les pics d'activité et les creux : la page google avec la fréquentation est un bon outil. La fréquentation aura un impact sur votre potentiel de CA. "
+Le prix de session est-il cohérent au regard du chiffre d'affaires et l'état du fond ?,marche_zone,8,,"À noter : il existe plusieurs méthodes d'évaluation : patrimoniale, comparative et de la rentabilité.
+
+- Prix supérieur à 100% du CA = Risque d'avoir des difficultés à couvrir les charges avec la nécessité de faire plus de CA que le cédant. Justifié par un emplacement premium, un fonds bien entretenu et doté d'investissements importants.
+
+- Prix entre 70% et 100% du CA = Dans la moyenne des prix de vente en France voire plus bas depuis 2025 (50% à 60%)
+
+- Prix inférieur à 70% du CA : Risque d'avoir des investissements à prévoir
+(Cf. barème Francis Lefebvre)
+"
+Avez-vous réalisé plusieurs prévisionnels avec des professionnels ?,analyse_financiere,10,,"Pour votre prévisionnel, nous vous conseillons de vous faire accompagner par des professionnels (CMA, CCI, Expert-comptable). Il est préférable d'en réaliser au moins 2 par 2 professionnels différents pour avoir une comparaison."
+Avez-vous inclus des marges de sécurité dans votre prévisionnel  ?,analyse_financiere,6,,Il est important de prévoir de la souplesse dans votre prévisionnel car ce dernier pourrait ne pas se réaliser à 100%.
+Le prévisionnel vous permet-il de vous verser la rémunération souhaitée sur 5 ans ?,analyse_financiere,7,,"Votre activité doit vous rémunérer, ne cédez pas sur ce point ! Il en va de votre santé mentale, financière, familiale mais également de la revente un jour de votre fonds de commerce."
+💳 Le fonds repris dispose-t-il des certificats d'homologation de sa caisse enregistreuse ?,analyse_financiere,1,,"Pour plus d'efficacité nous vous conseillons d'utiliser un système de caisse informatisé. Il doit répondre à la Norme NF525 et aux dispositions de l'article 286 du CGI. L'amende encourue est de 7500 euros pas poste. A cela s'ajoute les frais de remplacement. 
+Lors de votre audit, demandez les certificats de conformité. C'est un axe de négociation."
+Avez-vous négocié votre prêt et conditions avec plusieurs banques ?,analyse_financiere,3,,"Nous vous conseillons d'étudier tous les conditions et de les NÉGOCIER. En affaire, il n'y a pas de petites économies et tout se négocie ! 
+Éléments à négocier : Taux hors assurance, taux de l'assurance, les quotités de l'assurance, les garanties de l'assurance, les garanties du prêt, le coût de la garantie, les frais de dossier, le différé de remboursement, les conditions de TPE et consommables, les frais bancaires. Attention à l'évolution des frais."
+💰 Avez-vous 3 mois de trésorerie de sécurité ?,analyse_financiere,4,,"Calculez le montant de vos charges fixes pour connaître le montant idéal de trésorerie à avoir. 
+"
+Votre expert-comptable est-il au forfait ?,analyse_financiere,6,,"Nous vous conseillons d'être au forfait pour avoir une maîtrise de vos coûts et travailler de manière plus sereine.
+D'autres modes de facturation existent (temps passé, à la valeur, à l'acte etc...)"
+"Votre expert-comptable vous transmet-il un compte d'exploitation mensuel ?  ",analyse_financiere,9,,"Vous devez avoir un compte d'exploitation mensuel pour piloter votre activité. Lors de la déclaration de TVA, le comptable le réalise. Négociez cela gratuitement dès le début de votre contrat. Cela ne lui prend pas plus de temps."
+🧾 Avez-vous analysé la clause de révision du loyer du bail ?,analyse_financiere,7,,La révision triennale peut vous coûter chère. Pensez à limiter son impact ou le prendre en compte dans vos calculs.
+🖥️ Disposez-vous d'un logiciel de gestion de marge ?,analyse_financiere,8,,"Vous devez absolument maîtriser votre marge. Pour cela, il est primordial d'avoir un logiciel de gestion de marge. Besoin de formation ? Contactez-vous."
+Avez-vous analysé le poids des charges du fonds vs les charges moyennes du secteur ?,analyse_financiere,5,,"Taux de marge, masse salariale, taux d'effort du loyer, énergies notamment."
+Avez-vous réalisé votre budget prévisionnel annuel journalier ?,analyse_financiere,5,,Vous devez suivre vos chiffres quotidiennement pour mettre en place des plans d'action. Pensez à noter chaque jour la météo et les évènements particuliers ayant pu impacter le CA.
+Une taxe sur la publicité extérieure est-elle payée ?,analyse_financiere,1,,"Vous pouvez être amené à payer une taxe pour vos enseignes anciennement TLPE. De manière générale, dans votre étude financière, pensez à analyser toutes les taxes annexes qui peuvent revenir chères une fois qu'elles sont cumulées les unes aux autres. (TPE : se référer à la mairie)"
+La règlementation en matière d'emballage est-elle respectée ?,analyse_financiere,2,,La loi AGEC prévoit que vous déclariez votre consommation d'emballage selon plusieurs critères. Rapprochez-vous de votre expert-comptable ou votre fournisseur d'emballage.
+"📂 Avez-vous eu accès aux contrats de tous les salariés ? ",ressources_humaines,10,,"Vous devez mener un audit social, si possible avec un avocat en droit social. Cela vous permettra de partir sur une page la plus blanche possible.
+"
+📅 Existe-t-il des plannings de travail?,ressources_humaines,8,,"La loi prévoit que des plannings soient établis et affichés selon un délai de prévenance de 7 jours.  
+Paragraphe 4 : Répartition de la durée du travail (Articles L3123-23 à L3123-25) du Code du Travail."
+Existe-t-il beaucoup d'heures supplémentaires payées ?,ressources_humaines,5,,"Les heures supplémentaires sont perçues par les salariés comme une source de revenu supplémentaire ""due"" lorsque cela est récurrent. Cela peut représenter un coût important pour l'entreprise et un changement d'organisation peut avoir un impact négatif sur l'entreprise. Ceci est un axe de négociation. 
+En outre, il existe une règlementation à respecter en matière d'heures supplémentaires."
+Existe-t-il de l'entraide familiale au sens large ?,ressources_humaines,8,,"L'entraide famiale doit être prise en compte dans la masse salariale pour ne pas augmenter artificiellement la valeur de l'entreprise.
+"
+100% de la rémunération des salariés est-t-elle déclarée selon la législation e,ressources_humaines,4,,"S'il y a eu des paiements non déclarés vous devez le savoir pour éventuellement les répercuter sur la masse salariale. "
+Certains salariés ont-ils des avantages particuliers ?,ressources_humaines,3,,Prenez note de tous les avantages particuliers pour en estimer le coût et le valoriser lors de la vente.
+Existe-t-il des usages au sein de l'entreprise ?,ressources_humaines,3,,"3 critères pour parler d'usage : généralité, constance, fixité. Supprimer un usage doit se faire dans le respect d'une procédure spécifique.
+(Jurisprudences de la Cour de Cassation).
+"
+Avez-vous pu étudier en détail les dossiers du personnel ?,ressources_humaines,9,,"Regardez le volets entretien d'évaluation, formation, discipline, arrêt maladie."
+Avez-vous pu vous entretenir individuellement avec les salariés et/ou représentants ?,ressources_humaines,6,,Vous pouvez découvrir des éléments importants du fonctionnement de l'entreprise.
+Certains salariés ont-ils une position hiérarchique non contractualisée ?,ressources_humaines,1,,Certains salariés peuvent jouer un rôle hiérarchique sans que cela ne soit inscrit dans le contrat de travail. Cela sera un sujet managérial et juridique à gérer lors de la reprise.
+"Existe-t-il des salariés absents dans l'entreprise lors de la reprise ? (CPE, maternité, incapacité...)",ressources_humaines,3,,"Plusieurs causes sont possibles, vous devez en apprécier les impacts futurs."
+"🏛️ Existe-t-il des procédures en cours ? (Discplinaire, dossier d'invalidité, etc)",ressources_humaines,4,,"Plusieurs causes sont possibles, vous devez en apprécier les impacts futurs."
+Certains salariés ont-ils plus de 10 ans d'ancienneté ?,ressources_humaines,9,,"Pensez à évaluer le coût de départ des salairés ayant 10 ans d'ancienneté. Cela peut avoir un impact considérable sur votre trésorerie. C'est un élément de négociation. Reprendre une entreprise de personnes ""expérimentées"" présente des avantages mais aussi des inconvénients.
+A partir partir de la 11ème année le coût n'est pas le même.
+"
+Certains salariés sont-ils proches de la retraite ?,ressources_humaines,8,,Vous devez évaluer le coût avec votre expert-comptable.
+"Le nombre d'apprentis est-il cohérent au regard du nombre d'employés ? ",ressources_humaines,1,,Ceci est un indicateur du fonctionnement de l'entreprise et de sa santé économique et financière.
+📄 Les obligations d'affichage légal en entreprise sont-elles respectées ?,ressources_humaines,2,,"Selon l'effectif, vous devez respecter différentes règles d'affichage. Attention, le non-respect de ces règles est passible d'une amende. 
+Voir Code du Travail."
+Le DUERP est-il mis en place ? (Document Unique d'Evaluation des Risques Professionnels),ressources_humaines,3,,"Au premier salarié embauché, vous devez mettre ne place le Document Unique d'Evaluation des Risques Professionnels. En cas de non-respect, vous risquez une amende. Voir Code du Travail."
+🩺 Les obligations relatives à la médecine du travail sont-elles respectées ?,ressources_humaines,3,,"Les entreprises privées doivent adhérer à la médecine du travail. Vérifier que les visites médicales aient bien été réalisées.
+Article L4622-1 et suivants du Code du Travail."
+Y-a-t-il déjà eu une visite de l'inspection du travail ?,ressources_humaines,7,,"S'il y a un rapport d'inspection du travail, vous devez ABSOLUMENT obtenir le rapport car il sera riche d'information et celui-ci peut impliquer des dépenses importantes comme le remplacement d'une machine jugée dangereuse, la mise au norme d'un tableau électrique, l'achat d'EPI, etc.
+Article L8112-1 et suivants du Code du Travail."
+👥 La règlementation liée aux Instances Représentative du Personnel est-elle respectée ?,ressources_humaines,5,,"Selon l'effectif de votre entreprise vous devez organiser des élections. En cas de d'absence de candidatures un procès verbal de carence doit être établi.
+Article L2311-1 et suivants du Code du Travail"
+Avez-vous réalisé un audit du bail commercial avec un professionnel ?,administratif_contrats,8,,Le bail est un élément important du fonds de commerce. Vous devez faire l'audit du bail avec un professionnel du droit.
+Avez-vous fait un audit des contrats de la société ?,administratif_contrats,6,,"Liste non exhausitve des contrats :
+- Bail commercial
+- Contrats de travail
+- Electricité/Energies (gaz, fioul, bois)
+- Eau/Adoucisseurs
+- Ordures Ménagères (dont le tri des biodéchets)
+- Maintenance des machines
+- Vidéo-surveillance"
+Avez-vous réalisé un état des lieux avec photos ?,administratif_contrats,5,,"Lors de l'état des lieux, pensez à tout photographier."
+Le local respecte-t-il la règlementation sur l'accessibilité des établissements recevant du public (ERP)?,administratif_contrats,2,,"Rapprochez-vous de votre mairie.
+Loi du 11 février 2005 pour l'égalité des droits et des chances, la participation et la citoyenneté des personnes handicapées, les établissements recevant du public.
+Voir aussi : Construction d'établissements recevant du public et aménagement d'installations ouvertes au public (Articles R162-8 à R162-13) du Code de la Construction.
+
+Sanctions possibles : Fermeture de l'ERP par l'autorité administrative
+Amende de 45 000 € (jusqu'à 225 000 € pour une personne morale)"
+La société respecte-t-elle la règlementation sur la facturation électronique ?,administratif_contrats,3,,"Vérifiez que vous disposez des équipements et contrats pour mettre en place la facturation électronique.
+Article 289 et suivants du Code des Impôts."
+L'obligation de déclaration de manipulation de denrées alimentaires d'origine animale a-t-elle été réalisée ?,administratif_contrats,3,,"Il convient de se rapprocher de la DDPP (Direction Départementale de la Protection des
+Populations). Le Cerfa 13984*06 sera a utiliser.
+Articles de loi : Code rural et de la pêche maritime (Article L233-3, R231-4, R233-4)"
+Avez-vous pu réaliser un audit des machines avec un professionnel avant la reprise/la vente ?,materiel_production,9,,"Faites contrôler le matériel avant la cession. Contôler la VNC du matériel. Celle-ci est indicatrice de l'usure du matériel. Une VNC proche de zéro indique un matériel amorti donc un investissement à prévoir.
+Contrôler les liquides frigorigènes.
+Contrôler  l'état de fonctionnement en détail de chaque machine (testez tous les boutons !)
+Le jour de la session : ne faites pas l'économie d'un état des lieux."
+Avez-vous fait un audit du petit matériel ?,materiel_production,7,,Faites un audit de tout le petit matériel manquant ou à renouveler car cela peut vite chiffrer !
+Avez-vous fait un audit de l'ameublement et autre matériel de stockage ?,materiel_production,7,,"Le stockage de denrées alimentaires et produits secs implique de respecter un certains nombres de règles : etagères de rangement, bacs de rangement HACCP, palettes etc. Vérifier que le principe de ""marche en avant"" soit respecté."
+"Existe-il un aspirateur satisfaisant aux normes en vigueur pour lutter contre les poussières de farine ? ",materiel_production,2,,"Il est recommandé d'avoir un aspirateur qui respecte la norme ATEX. Attention, c'est un matériel qui coûte cher. Vous pouvez obtenir des aides de l'Assurance maladie, pensez à vous renseigner. A lire ; La recommandation R438 de l'INRS."
+Existe-t-il une centrale de nettoyage et de désinfection ?,locaux_securite_hygiene,1,,"La centrale de nettoyage et de désinfection permet de garantir un lavage optimal des sols. Elle n'est pas obligatoire mais peut représenter un investissement nécessaire pour garantir votre responsabilité en matière d'hygiène.
+"
+Avez-vous eu accès au dernier rapport de l'inspection sanitaires ?,locaux_securite_hygiene,8,,"Vous pouvez accéder à certaines informations sur le site Alim'Confiance : https://alimconfiance.agriculture.gouv.fr/
+Plusieurs thèmes sont traités lors d'une inspection."
+Un système de contrôle des températures des denrées est-il en place ?,locaux_securite_hygiene,3,,Vous devez tenir un registre de contrôle des températures. Ce registre peut être manuel ou via une application.
+Des tests d'analyse en laboratoire vous ont-ils été présentés ?,locaux_securite_hygiene,4,,"Des tests d'analyses doivent être réalisés régulièrement par un laboratoire indépendant. Ces tests se font sur la production, les surfaces ou encore le matériel.  Cela démontre le sérieux d'une entreprise et est une plus-value lors de la cession. En revanche, l'absence de rapport d'analyse est un risque."
+Existe-t-il un Plan de Maitrîse Sanitaire ?,locaux_securite_hygiene,7,,"Un plan de maîtrise sanitaire doit être mise en place. Vous pouvez le faire vous-même ou via une société externe.
+Voir règlement du ""Paquet Hygiène"" (Règlement (CE) n°852/2004)"
+Existe-t-il un plan de lutte contre les nuisibles ?,locaux_securite_hygiene,5,,Un plan de lutte contre les nuisibles doit être mise en place. Vous pouvez le faire vous-même ou via une société externe.
+Disposez-vous d'un local benne isolé ?,locaux_securite_hygiene,2,,"Vos poubelles doivent être dans un local benne éloigné du laboratoire, en extérieur dans l'idéal et à proximité d'aucune denrée alimentaire."
+Le tri des déchets est-il effectué selon la réglementation en vigueur ?,locaux_securite_hygiene,1,,"Vous devez trier vos déchets et notamment les déchets organiques ou bio déchets. Il s'agit du tri à la source des déchets des entreprises. Des sanctions administratives et/ou pénales sont possibles.
+Article L541-21 et suivants du Code de l'environnement."
+Les locaux sont-ils adaptés pour un nettoyage conforme à la règlementation ?,locaux_securite_hygiene,5,,"Murs lessivables, tables en inox, sol nettoyable avec caniveau de sol nettoyable, espace de rangement pour le petit matériel etc.
+Voir notamment : Arrêté du 20 novembre 1979 portant règlement sanitaire du département de Paris. Titre VII."
+L'immeuble est-il raccordé à l'assainissement collectif (tout-à-l'égout) ?,locaux_securite_hygiene,5,,Le raccordement au tout-à-l'égoût est obligatoire.
+L'approvisionnement en eau potable se fait-il via le réseau public ?,locaux_securite_hygiene,1,,"Vérifier la présence d'un adoucisseur, si oui, d'un contrat de maintenance."
+La ventilation et l’extraction d’air sont-elles fonctionnelles et conformes ?,locaux_securite_hygiene,1,,"L'aération et la ventilation doivent être assurées en permanence et permettre l'évacuation rapide des odeurs, des buées et vapeurs de cuisson."
+Le local est-il équipé d’un bac à graisse ?,locaux_securite_hygiene,1,,"Vous devez disposer d'un bac à graisse. Sa mise en place peut représenter un coût.
+Voir notamment : Article R1331-2 du Code de la Santé Publique"
+Le local dispose-t-il du nombre suffisant de blocs autonome d'éclairage de sécurité (BAES) ?,locaux_securite_hygiene,8,,Renseignez-vous auprès de professionnels. Les travaux peuvent être coûteux.
+L'entreprise dispose-t-elle de tous les moyens de protection contre les incendies ?,locaux_securite_hygiene,8,,"Faites intervenir des professionnels de la protection incendie. A contrôler notamment : les extincteurs (nombre, disposition, classe adaptée ou non), détection, signalisation et plans, alertes, formation du personnel."
+Avez-vous consulté le rapport électrique ?,locaux_securite_hygiene,8,,"Vérification annuelle à réaliser par un bureau de contrôle. En cas d'anomalie, la facture peut être élevée.
+Vérification des installations électriques (Articles R4226-14 à R4226-21) Code du travail"
+Disposez-vous d'une porte automatique ?,locaux_securite_hygiene,2,,"Si vous disposez de portes automatiques, vous devez obligatoirement avoir un contrat de maintenance.
+(Arrêté du 21 décembre 1993 relatif aux portes et portails automatiques et semi-automatiques sur les lieux de travail)"
+"Existe-t-il un système de protection (alarme, vidéosurveillance etc) des locaux ?",locaux_securite_hygiene,1,,Contrat à auditer.
