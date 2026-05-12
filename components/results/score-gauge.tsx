@@ -12,18 +12,22 @@ export function ScoreGauge({ score }: { score: number }) {
   return (
     <div className="flex flex-col items-center">
       <div
-        className="grid size-52 place-items-center rounded-full"
+        className="grid size-52 place-items-center rounded-full p-2 shadow-[inset_0_0_0_1px_rgba(15,38,64,.08)]"
         style={{
-          background: `conic-gradient(#d4ac45 ${angle}deg, rgba(15,38,64,.12) 0deg)`,
+          background: `conic-gradient(#d4ac45 ${angle}deg, rgba(15,38,64,.1) 0deg)`,
         }}
       >
-        <div className="grid size-40 place-items-center rounded-full bg-white">
-          <span className={cn("font-serif text-5xl", scoreColor(score))}>
-            {formatPercent(score)}
-          </span>
+        <div className="grid size-40 place-items-center rounded-full bg-white shadow-sm">
+          <div className="text-center">
+            <span className={cn("font-serif text-5xl leading-none", scoreColor(score))}>
+              {formatPercent(score)}
+            </span>
+            <span className="mt-2 block text-xs font-semibold uppercase tracking-[0.16em] text-secondary">
+              Score
+            </span>
+          </div>
         </div>
       </div>
-      <p className="mt-3 text-sm font-semibold text-secondary">Score global</p>
     </div>
   );
 }

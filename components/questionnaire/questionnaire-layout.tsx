@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, CheckCircle2, ClipboardCheck } from "lucide-react";
+import { ArrowLeft, CheckCircle2, ClipboardCheck, LayoutDashboard } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import type { Audit, Category, Question, ResponseRow } from "@/lib/types";
 import { BrandLogo } from "@/components/brand-logo";
@@ -32,12 +33,26 @@ export function QuestionnaireLayout({
   const timers = useRef<Record<number, ReturnType<typeof setTimeout>>>({});
   const advanceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const orderedCategories = categories
-    .slice()
-    .sort((a, b) => a.display_order - b.display_order);
-  const orderedQuestions = questions
-    .slice()
-    .sort((a, b) => a.display_order - b.display_order);
+  const orderedCategories = useMemo(
+    () => categories.slice().sort((a, b) => a.display_order - b.display_order),
+    [categories],
+  );
+  const categoryOrderById = useMemo(
+    () => new Map(orderedCategories.map((category) => [category.id, category.display_order])),
+    [orderedCategories],
+  );
+  const orderedQuestions = useMemo(
+    () =>
+      questions.slice().sort((a, b) => {
+        const categoryOrderA = categoryOrderById.get(a.category_id) ?? Number.MAX_SAFE_INTEGER;
+        const categoryOrderB = categoryOrderById.get(b.category_id) ?? Number.MAX_SAFE_INTEGER;
+
+        if (categoryOrderA !== categoryOrderB) return categoryOrderA - categoryOrderB;
+        if (a.display_order !== b.display_order) return a.display_order - b.display_order;
+        return a.id - b.id;
+      }),
+    [categoryOrderById, questions],
+  );
   const currentQuestion = orderedQuestions[currentQuestionIndex];
   const activeCategory = orderedCategories.find(
     (category) => category.id === currentQuestion?.category_id,
@@ -125,12 +140,24 @@ export function QuestionnaireLayout({
   }
 
   return (
-    <div className="grid min-h-screen bg-page lg:grid-cols-[300px_1fr]">
+    <div className="grid min-h-screen bg-page lg:grid-cols-[280px_1fr]">
       <aside className="hidden border-r border-primary/10 bg-white p-5 lg:block">
         <BrandLogo className="mb-8 w-36" priority />
         <h1 className="font-serif text-2xl text-primary">Audit guide</h1>
-        <p className="mt-1 text-sm text-secondary">{audit.business_name}</p>
-        <nav className="mt-8 space-y-2">
+        <p className="mt-1 text-sm leading-5 text-secondary">{audit.business_name}</p>
+        <div className="mt-6">
+          <div className="flex items-center justify-between text-xs font-semibold uppercase tracking-[0.14em] text-secondary">
+            <span>Progression</span>
+            <span>{Math.round(progressPercent)}%</span>
+          </div>
+          <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-primary/10">
+            <div
+              className="h-full rounded-full bg-accent transition-all"
+              style={{ width: `${progressPercent}%` }}
+            />
+          </div>
+        </div>
+        <nav className="mt-8 space-y-1">
           {orderedCategories.map((category) => {
             const progress = progressByCategory.get(category.id);
             const isActive = activeCategory?.id === category.id;
@@ -139,10 +166,10 @@ export function QuestionnaireLayout({
                 key={category.id}
                 onClick={() => goToCategory(category.id)}
                 className={cn(
-                  "group w-full rounded-md border px-3 py-3 text-left text-sm transition",
+                  "group w-full rounded-md px-3 py-3 text-left text-sm transition",
                   isActive
-                    ? "border-primary bg-primary text-white"
-                    : "border-transparent text-primary hover:border-primary/10 hover:bg-primary/5",
+                    ? "bg-primary text-white"
+                    : "text-primary hover:bg-primary/5",
                 )}
               >
                 <span className="flex items-center justify-between gap-3">
@@ -169,11 +196,11 @@ export function QuestionnaireLayout({
       </aside>
 
       <main className="flex min-h-screen flex-col">
-        <header className="border-b border-primary/10 bg-white/90 px-4 py-4 backdrop-blur md:px-8">
+        <header className="border-b border-primary/10 bg-white/90 px-4 py-3 backdrop-blur md:px-8">
           <div className="mx-auto flex max-w-5xl flex-col gap-4 md:flex-row md:items-center md:justify-between">
             <div className="flex items-center gap-3">
-              <div className="flex h-11 w-11 items-center justify-center rounded-md bg-primary text-white">
-                <ClipboardCheck size={22} />
+              <div className="flex h-10 w-10 items-center justify-center rounded-md bg-primary/5 text-primary">
+                <ClipboardCheck size={20} />
               </div>
               <div>
                 <p className="text-sm font-semibold text-primary">
@@ -184,7 +211,7 @@ export function QuestionnaireLayout({
                 </p>
               </div>
             </div>
-            <div className="min-w-0 flex-1 md:max-w-sm">
+            <div className="hidden min-w-0 flex-1 md:block md:max-w-sm">
               <div className="h-2 overflow-hidden rounded-full bg-primary/10">
                 <div
                   className="h-full rounded-full bg-accent transition-all"
@@ -192,11 +219,18 @@ export function QuestionnaireLayout({
                 />
               </div>
             </div>
-            {isComplete && (
-              <Button onClick={finalizeAudit} disabled={isFinalizing} variant="secondary">
-                <CheckCircle2 size={18} /> Terminer l'audit
-              </Button>
-            )}
+            <div className="flex flex-wrap items-center gap-2">
+              <Link href="/dashboard">
+                <Button variant="ghost">
+                  <LayoutDashboard size={18} /> Tableau de bord
+                </Button>
+              </Link>
+              {isComplete && (
+                <Button onClick={finalizeAudit} disabled={isFinalizing} variant="secondary">
+                  <CheckCircle2 size={18} /> Terminer l'audit
+                </Button>
+              )}
+            </div>
           </div>
         </header>
 
@@ -220,8 +254,8 @@ export function QuestionnaireLayout({
           </div>
         </div>
 
-        <section className="flex flex-1 items-center px-4 py-6 md:px-8 md:py-10">
-          <div className="mx-auto w-full max-w-5xl">
+        <section className="flex flex-1 items-center px-4 py-6 md:px-8 md:py-8">
+          <div className="mx-auto w-full max-w-4xl">
             {!hasQuestions ? (
               <div className="rounded-lg border border-primary/10 bg-white p-6 shadow-sm">
                 <h2 className="font-serif text-2xl text-primary">

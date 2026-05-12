@@ -4,6 +4,7 @@ import { Plus } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import type { Audit, Profile } from "@/lib/types";
 import { BrandLogo } from "@/components/brand-logo";
+import { LogoutButton } from "@/components/logout-button";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { formatPercent } from "@/lib/utils";
@@ -15,16 +16,19 @@ export default async function DashboardPage() {
   } = await supabase.auth.getUser();
   if (!user) redirect("/login");
 
-  const [{ data: profile }, { data: audits }] = await Promise.all([
-    supabase.from("profiles").select("*").eq("id", user.id).single(),
-    supabase
-      .from("audits")
-      .select("*")
-      .eq("user_id", user.id)
-      .order("updated_at", { ascending: false }),
-  ]);
-
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("*")
+    .eq("id", user.id)
+    .single();
   const currentProfile = profile as Profile | null;
+  const { data: audits } = currentProfile?.is_active
+    ? await supabase
+        .from("audits")
+        .select("*")
+        .eq("user_id", user.id)
+        .order("updated_at", { ascending: false })
+    : { data: [] };
   const items = (audits ?? []) as Audit[];
   const firstName = currentProfile?.full_name?.split(" ")[0] || "client";
 
@@ -42,13 +46,16 @@ export default async function DashboardPage() {
               : "Tableau de bord"}
           </h1>
         </div>
-        {currentProfile?.is_active && (
-          <Link href="/audit/new">
-            <Button variant="secondary">
-              <Plus size={18} /> Nouvel audit
-            </Button>
-          </Link>
-        )}
+        <div className="flex flex-wrap items-center gap-3">
+          {currentProfile?.is_active && (
+            <Link href="/audit/new">
+              <Button variant="secondary">
+                <Plus size={18} /> Nouvel audit
+              </Button>
+            </Link>
+          )}
+          <LogoutButton />
+        </div>
       </div>
 
       {!currentProfile?.is_active && (

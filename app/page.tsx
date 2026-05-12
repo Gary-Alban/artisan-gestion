@@ -7,8 +7,8 @@ import {
   ShieldCheck,
   TrendingUp,
 } from "lucide-react";
-import { BrandLogo } from "@/components/brand-logo";
 import { CalendlyEmbed } from "@/components/landing/calendly-embed";
+import { SiteHeader } from "@/components/landing/site-header";
 import { SiteFooter } from "@/components/landing/site-footer";
 
 const benefits = [
@@ -97,32 +97,9 @@ export default function HomePage() {
   return (
     <main>
       <section className="bg-primary text-white">
-        <div className="mx-auto max-w-7xl px-6">
-          <header className="flex items-center justify-between border-b border-accent/15 py-6">
-            <Link href="/" aria-label="Accueil Artisan Gestion">
-              <BrandLogo variant="dark" priority className="w-28 sm:w-36" />
-            </Link>
-            <nav className="hidden items-center gap-8 text-sm font-semibold text-white/72 md:flex">
-              <Link href="#process" className="transition hover:text-accent">
-                Comment ça marche
-              </Link>
-              <Link href="#categories" className="transition hover:text-accent">
-                Catégories
-              </Link>
-              <Link href="#calendly" className="transition hover:text-accent">
-                Contact
-              </Link>
-            </nav>
-            <Link
-              href="/login"
-              className="rounded-md bg-accent px-5 py-2.5 text-sm font-semibold text-primary transition hover:bg-accent/90"
-            >
-              Se connecter
-            </Link>
-          </header>
-        </div>
+        <SiteHeader />
 
-        <div className="mx-auto grid min-h-[calc(100vh-98px)] max-w-7xl content-center gap-14 px-6 py-20 lg:grid-cols-[minmax(0,1fr)_390px] lg:items-center">
+        <div className="mx-auto grid min-h-screen max-w-7xl content-center gap-14 px-6 pb-20 pt-32 lg:grid-cols-[minmax(0,1fr)_390px] lg:items-center">
           <div className="animate-reveal-up">
             <p className="mb-6 text-sm font-semibold uppercase tracking-[0.22em] text-accent">
               Façonnez votre réussite
