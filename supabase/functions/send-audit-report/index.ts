@@ -48,6 +48,10 @@ serve(async (request) => {
   );
   const resend = new Resend(Deno.env.get("RESEND_API_KEY")!);
   const adminEmail = Deno.env.get("ADMIN_EMAIL")!;
+  const appUrl =
+    Deno.env.get("APP_URL") ??
+    Deno.env.get("NEXT_PUBLIC_SITE_URL") ??
+    new URL(request.url).origin;
 
   const { data: audit, error: auditError } = await supabase
     .from("audits")
@@ -104,25 +108,30 @@ serve(async (request) => {
   const details = result.rows
     .map((row) => `- ${row.category.name} : ${Math.round(row.percent)}%`)
     .join("\n");
+  const adminLink = `${appUrl.replace(/\/$/, "")}/admin/audits/${auditId}`;
 
   await resend.emails.send({
     from: "Artisan Gestion <audit@artisan-gestion.fr>",
-    to: [audit.profiles.email],
-    cc: [adminEmail],
-    subject: `Votre rapport d'audit pre-acquisition - ${audit.business_name}`,
-    text: `Bonjour,
+    to: [adminEmail],
+    subject: `Nouvel audit termine - ${audit.business_name}`,
+    text: `Bonjour Gary-Alban,
 
-Vous trouverez ci-joint le rapport detaille de votre audit pre-acquisition pour ${audit.business_name}.
+Un client vient de finaliser un audit pre-acquisition.
+
+Client : ${audit.profiles.email}
+Fonds audite : ${audit.business_name}
 
 Score global : ${Math.round(result.final)}% (niveau de conformite)
 
 Detail par categorie :
 ${details}
 
-Gary-Alban Maravilha vous contactera prochainement pour vous transmettre l'analyse detaillee et vous accompagner dans la suite de votre projet.
+Acces administrateur :
+${adminLink}
 
-A tres vite,
-L'equipe Artisan Gestion`,
+Le rapport Excel est joint a cet email.
+
+A tres vite`,
     attachments: [
       {
         filename: `audit-${String(audit.business_name ?? "fonds").replaceAll(" ", "-")}.xlsx`,

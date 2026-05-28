@@ -4,7 +4,11 @@ import {
   ArrowLeft,
   CheckCircle2,
   CircleAlert,
+  ShieldAlert,
+  ShieldCheck,
+  ShieldMinus,
   TrendingUp,
+  type LucideIcon,
 } from "lucide-react";
 import { createClient } from "@/lib/supabase/server";
 import { calculateScores, type CategoryScore } from "@/lib/scoring";
@@ -50,11 +54,71 @@ function scoreLabel(score: number) {
   return "Solide";
 }
 
-function riskTone(riskLevel: number | null) {
-  if (!riskLevel) return "bg-primary/5 text-secondary";
-  if (riskLevel >= 4) return "bg-red-50 text-red-700";
-  if (riskLevel >= 3) return "bg-orange-50 text-orange-700";
-  return "bg-teal/10 text-teal";
+type RiskStatus = {
+  label: string;
+  Icon: LucideIcon;
+  className: string;
+  iconClassName: string;
+};
+
+function riskStatusFromCoef(coef: number | undefined): RiskStatus {
+  if (!coef) {
+    return {
+      label: "Non renseigne",
+      Icon: ShieldMinus,
+      className: "border-primary/10 bg-primary/5 text-secondary",
+      iconClassName: "bg-white text-secondary",
+    };
+  }
+
+  if (coef <= 2) {
+    return {
+      label: "Risque fort",
+      Icon: ShieldAlert,
+      className: "border-red-200 bg-red-50 text-red-800",
+      iconClassName: "bg-red-100 text-red-700",
+    };
+  }
+
+  if (coef === 3) {
+    return {
+      label: "Maitrise",
+      Icon: ShieldMinus,
+      className: "border-amber-200 bg-amber-50 text-amber-800",
+      iconClassName: "bg-amber-100 text-amber-700",
+    };
+  }
+
+  return {
+    label: "Risque faible",
+    Icon: ShieldCheck,
+    className: "border-teal/20 bg-teal/10 text-teal",
+    iconClassName: "bg-white text-teal",
+  };
+}
+
+function RiskBadge({ coef }: { coef: number | undefined }) {
+  const status = riskStatusFromCoef(coef);
+  const Icon = status.Icon;
+
+  return (
+    <span
+      className={cn(
+        "inline-flex w-40 items-center gap-2 whitespace-nowrap rounded-full border py-1 pl-1.5 pr-3 text-left font-semibold shadow-sm",
+        status.className,
+      )}
+    >
+      <span
+        className={cn(
+          "grid size-7 shrink-0 place-items-center rounded-full",
+          status.iconClassName,
+        )}
+      >
+        <Icon size={15} strokeWidth={2.4} />
+      </span>
+      <span>{status.label}</span>
+    </span>
+  );
 }
 
 function formatDate(value: string | null) {
@@ -260,10 +324,22 @@ export default async function ResultsPage({
             <p className="text-sm font-semibold uppercase tracking-[0.14em] text-secondary">
               Reponses
             </p>
-            <h2 className="mt-1 font-serif text-2xl text-primary">Detail des questions</h2>
+            <div className="mt-1 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+              <div>
+                <h2 className="font-serif text-2xl text-primary">Detail des questions</h2>
+                <p className="mt-2 max-w-2xl text-sm leading-6 text-secondary">
+                  Le niveau de risque est maintenant deduit de la reponse cochee par le client.
+                </p>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <RiskBadge coef={1} />
+                <RiskBadge coef={3} />
+                <RiskBadge coef={5} />
+              </div>
+            </div>
           </div>
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[820px] text-left text-sm">
+            <table className="w-full min-w-[920px] text-left text-sm">
               <thead className="bg-primary/5 text-xs font-semibold uppercase tracking-[0.08em] text-primary">
                 <tr>
                   <th className="px-6 py-3">Categorie</th>
@@ -274,30 +350,27 @@ export default async function ResultsPage({
                 </tr>
               </thead>
               <tbody className="divide-y divide-primary/10 text-secondary">
-                {allQuestions.map((question) => (
-                  <tr key={question.id} className="bg-white transition hover:bg-primary/5">
-                    <td className="px-6 py-4 align-top font-semibold text-primary">
-                      {categoryById.get(question.category_id)}
-                    </td>
-                    <td className="px-4 py-4 align-top leading-6">{question.text}</td>
-                    <td className="px-4 py-4 text-center align-top">
-                      <span className="inline-flex min-w-9 justify-center rounded-full bg-primary/5 px-3 py-1 font-semibold text-primary">
-                        {coefByQuestion.get(question.id) ?? "-"}
-                      </span>
-                    </td>
-                    <td className="px-4 py-4 text-center align-top">{question.weight}</td>
-                    <td className="px-6 py-4 text-center align-top">
-                      <span
-                        className={cn(
-                          "inline-flex min-w-9 justify-center rounded-full px-3 py-1 font-semibold",
-                          riskTone(question.risk_level),
-                        )}
-                      >
-                        {question.risk_level ?? "-"}
-                      </span>
-                    </td>
-                  </tr>
-                ))}
+                {allQuestions.map((question) => {
+                  const coef = coefByQuestion.get(question.id);
+
+                  return (
+                    <tr key={question.id} className="bg-white transition hover:bg-primary/5">
+                      <td className="px-6 py-4 align-top font-semibold text-primary">
+                        {categoryById.get(question.category_id)}
+                      </td>
+                      <td className="px-4 py-4 align-top leading-6">{question.text}</td>
+                      <td className="px-4 py-4 text-center align-top">
+                        <span className="inline-flex min-w-9 justify-center rounded-full bg-primary/5 px-3 py-1 font-semibold text-primary">
+                          {coef ?? "-"}
+                        </span>
+                      </td>
+                      <td className="px-4 py-4 text-center align-top">{question.weight}</td>
+                      <td className="px-6 py-4 text-center align-top">
+                        <RiskBadge coef={coef} />
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>

@@ -6,7 +6,17 @@ set search_path = public, auth
 as $$
 begin
   insert into public.profiles (id, email, full_name)
-  values (new.id, coalesce(new.email, ''), new.raw_user_meta_data->>'full_name')
+  values (
+    new.id,
+    coalesce(new.email, ''),
+    coalesce(
+      new.raw_user_meta_data->>'full_name',
+      new.raw_user_meta_data->>'name',
+      new.raw_user_meta_data->>'display_name',
+      new.raw_user_meta_data->>'given_name',
+      new.raw_user_meta_data->>'first_name'
+    )
+  )
   on conflict (id) do update
     set email = excluded.email,
         full_name = coalesce(excluded.full_name, public.profiles.full_name);
@@ -45,6 +55,17 @@ before insert on public.audits
 for each row execute function public.check_user_active();
 
 insert into public.profiles (id, email, full_name)
-select id, coalesce(email, ''), raw_user_meta_data->>'full_name'
+select
+  id,
+  coalesce(email, ''),
+  coalesce(
+    raw_user_meta_data->>'full_name',
+    raw_user_meta_data->>'name',
+    raw_user_meta_data->>'display_name',
+    raw_user_meta_data->>'given_name',
+    raw_user_meta_data->>'first_name'
+  )
 from auth.users
-on conflict (id) do nothing;
+on conflict (id) do update
+  set email = excluded.email,
+      full_name = coalesce(excluded.full_name, public.profiles.full_name);

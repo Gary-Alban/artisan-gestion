@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { RouteLoadingIndicator } from "@/components/route-loading-indicator";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -13,8 +14,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr">
-      <body suppressHydrationWarning>{children}</body>
+    <html lang="fr" data-scroll-behavior="smooth">
+      <body suppressHydrationWarning>
+        <RouteLoadingIndicator />
+        {children}
+      </body>
     </html>
   );
 }

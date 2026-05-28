@@ -112,6 +112,16 @@ textarea {
   }
 }
 
+@keyframes route-loading {
+  0% {
+    transform: translateX(-120%);
+  }
+
+  100% {
+    transform: translateX(220%);
+  }
+}
+
 .animate-reveal-up {
   animation: reveal-up 700ms ease-out both;
 }
@@ -127,6 +137,10 @@ textarea {
 .animate-timeline-progress {
   animation: timeline-progress-mobile 4.8s ease-in-out infinite;
   transform-origin: top;
+}
+
+.animate-route-loading {
+  animation: route-loading 1.1s ease-in-out infinite;
 }
 
 .animation-delay-100 {

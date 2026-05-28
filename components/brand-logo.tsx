@@ -16,7 +16,7 @@ export function BrandLogo({
 
   return (
     <Image
-      src={isDark ? "/logo-ag-marine-crop.png" : "/logo-ag-clair-crop.png"}
+      src={isDark ? "/logo-ag-marine-crop.png" : "/logo-ag-clair-transparent.png"}
       alt="Artisan Gestion - Faconnez votre reussite"
       width={isDark ? 1200 : 820}
       height={isDark ? 760 : 560}

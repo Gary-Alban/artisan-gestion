@@ -5,8 +5,9 @@ import { useRouter } from "next/navigation";
 import { LogOut } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
-export function LogoutButton() {
+export function LogoutButton({ className }: { className?: string }) {
   const router = useRouter();
   const [isSigningOut, setIsSigningOut] = useState(false);
 
@@ -19,7 +20,13 @@ export function LogoutButton() {
   }
 
   return (
-    <Button variant="ghost" onClick={signOut} disabled={isSigningOut}>
+    <Button
+      variant="ghost"
+      onClick={signOut}
+      isLoading={isSigningOut}
+      loadingLabel="Deconnexion..."
+      className={cn(className)}
+    >
       <LogOut size={18} /> Se deconnecter
     </Button>
   );

@@ -3,6 +3,8 @@ export type Profile = {
   email: string;
   full_name: string | null;
   is_active: boolean;
+  is_admin: boolean;
+  created_at: string;
 };
 
 export type Category = {
@@ -33,6 +35,7 @@ export type Audit = {
   final_score: number | null;
   started_at: string;
   completed_at: string | null;
+  viewed_by_admin: boolean;
   updated_at: string;
 };
 

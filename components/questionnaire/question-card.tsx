@@ -16,31 +16,17 @@ export function QuestionCard({
   question,
   value,
   onChange,
-  categoryName,
-  questionNumber,
-  totalQuestions,
 }: {
   question: Question;
   value?: number;
   onChange: (questionId: number, coef: number) => void;
-  categoryName: string;
-  questionNumber: number;
-  totalQuestions: number;
 }) {
   return (
     <article
       id={`question-${question.id}`}
-      className="rounded-lg border border-primary/10 bg-white p-6 shadow-sm md:p-8"
+      className="mx-auto w-full max-w-4xl py-2 md:py-6"
     >
-      <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
-        <div>
-          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent">
-            {categoryName}
-          </p>
-          <p className="mt-2 text-sm text-secondary">
-            Question {questionNumber} sur {totalQuestions}
-          </p>
-        </div>
+      <div className="flex justify-end">
         {question.risk_level && (
           <span
             className={cn(
@@ -52,10 +38,10 @@ export function QuestionCard({
           </span>
         )}
       </div>
-      <h2 className="mt-6 font-serif text-3xl leading-tight text-primary md:text-4xl">
+      <h2 className="mt-6 font-serif text-4xl leading-tight text-primary md:text-5xl">
         {question.text}
       </h2>
-      <div className="mt-7">
+      <div className="mt-8">
         <LikertScale
           questionId={question.id}
           value={value}
@@ -63,7 +49,7 @@ export function QuestionCard({
         />
       </div>
       {question.explanation && (
-        <details className="mt-6 rounded-md border border-primary/10 bg-page px-4 py-3 text-sm text-secondary">
+        <details className="mt-6 rounded-md border border-primary/10 bg-white/70 px-4 py-3 text-sm text-secondary">
           <summary className="cursor-pointer font-semibold text-primary">
             En savoir plus
           </summary>

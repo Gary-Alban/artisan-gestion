@@ -3,7 +3,6 @@
 import { FormEvent, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Eye, EyeOff } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -19,6 +18,7 @@ type SupabaseLikeError = {
   message?: string;
   code?: string;
   status?: number;
+  name?: string;
 };
 
 function isValidEmail(value: string) {
@@ -29,6 +29,7 @@ function getAuthErrorMessage(error: unknown, mode: AuthFormProps["mode"]) {
   const authError = error as SupabaseLikeError;
   const rawMessage = authError.message?.toLowerCase() ?? "";
   const code = authError.code?.toLowerCase() ?? "";
+  const name = authError.name?.toLowerCase() ?? "";
   const status = authError.status;
 
   if (
@@ -36,11 +37,15 @@ function getAuthErrorMessage(error: unknown, mode: AuthFormProps["mode"]) {
     rawMessage.includes("invalid login credentials") ||
     rawMessage.includes("invalid credentials")
   ) {
-    return "Email ou mot de passe incorrect.";
+    return "Aucun compte ne correspond a cet email ou le mot de passe est incorrect.";
   }
 
-  if (rawMessage.includes("email not confirmed")) {
-    return "Votre email n'est pas encore confirme. Verifiez votre boite mail avant de vous connecter.";
+  if (
+    code.includes("email_not_confirmed") ||
+    rawMessage.includes("email not confirmed") ||
+    rawMessage.includes("email address not confirmed")
+  ) {
+    return "Votre compte a ete cree, mais la connexion automatique a echoue. Essayez de vous connecter avec vos identifiants.";
   }
 
   if (rawMessage.includes("user already registered") || rawMessage.includes("already registered")) {
@@ -51,8 +56,29 @@ function getAuthErrorMessage(error: unknown, mode: AuthFormProps["mode"]) {
     return "Le mot de passe doit contenir au moins 8 caracteres.";
   }
 
+  if (
+    code.includes("same_password") ||
+    rawMessage.includes("new password should be different") ||
+    rawMessage.includes("different from the old password")
+  ) {
+    return "Choisissez un mot de passe different de l'ancien.";
+  }
+
   if (rawMessage.includes("invalid email")) {
     return "L'adresse email n'est pas valide.";
+  }
+
+  if (
+    code.includes("otp_expired") ||
+    code.includes("bad_code_verifier") ||
+    code.includes("session_not_found") ||
+    name.includes("authsessionmissingerror") ||
+    rawMessage.includes("session missing") ||
+    rawMessage.includes("invalid refresh token") ||
+    rawMessage.includes("token has expired") ||
+    rawMessage.includes("invalid or expired")
+  ) {
+    return "Votre lien n'est plus valide ou a expire. Demandez un nouveau lien pour continuer.";
   }
 
   if (status === 429 || rawMessage.includes("rate limit") || rawMessage.includes("too many")) {
@@ -82,6 +108,15 @@ function getAuthErrorMessage(error: unknown, mode: AuthFormProps["mode"]) {
   return "Impossible de vous connecter pour le moment. Reessayez dans quelques instants.";
 }
 
+function getInitialSearchMessage(searchParams: ReturnType<typeof useSearchParams>) {
+  return (
+    searchParams.get("error") ??
+    searchParams.get("error_description") ??
+    searchParams.get("message") ??
+    ""
+  );
+}
+
 export function AuthForm({ mode }: AuthFormProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -89,8 +124,7 @@ export function AuthForm({ mode }: AuthFormProps) {
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
   const [acceptedTerms, setAcceptedTerms] = useState(false);
-  const [showPassword, setShowPassword] = useState(false);
-  const [message, setMessage] = useState(searchParams.get("error") ?? "");
+  const [message, setMessage] = useState(getInitialSearchMessage(searchParams));
   const [messageType, setMessageType] = useState<MessageType>("error");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -142,23 +176,38 @@ export function AuthForm({ mode }: AuthFormProps) {
 
     try {
       if (mode === "login") {
-        const { error } = await supabase.auth.signInWithPassword({
+        const { data, error } = await supabase.auth.signInWithPassword({
           email: normalizedEmail,
           password,
         });
         if (error) throw error;
-        router.push(searchParams.get("redirect") || "/dashboard");
+        const redirectTo = searchParams.get("redirect");
+        const { data: profile } = data.user
+          ? await supabase
+              .from("profiles")
+              .select("is_admin")
+              .eq("id", data.user.id)
+              .single()
+          : { data: null };
+
+        router.push(redirectTo || (profile?.is_admin ? "/admin" : "/dashboard"));
         router.refresh();
       }
 
       if (mode === "signup") {
-        const { error } = await supabase.auth.signUp({
+        const { data, error } = await supabase.auth.signUp({
           email: normalizedEmail,
           password,
           options: { data: { full_name: normalizedFullName } },
         });
         if (error) throw error;
-        showMessage("success", "Compte cree. Confirmez votre email avant de vous connecter.");
+
+        if (data.user && data.user.identities?.length === 0) {
+          showMessage("error", "Un compte existe deja avec cet email. Connectez-vous ou utilisez le lien de mot de passe oublie.");
+          return;
+        }
+
+        showMessage("success", "Compte cree. Vous pouvez maintenant vous connecter.");
       }
 
       if (mode === "forgot") {
@@ -209,23 +258,12 @@ export function AuthForm({ mode }: AuthFormProps) {
       {mode !== "forgot" && (
         <label className="block text-sm font-medium text-primary">
           {mode === "reset" ? "Nouveau mot de passe" : "Mot de passe"}
-          <span className="relative mt-1 block">
-            <Input
-              type={showPassword ? "text" : "password"}
-              value={password}
-              onChange={(event) => setPassword(event.target.value)}
-              autoComplete={mode === "login" ? "current-password" : "new-password"}
-              className="pr-11"
-            />
-            <button
-              type="button"
-              aria-label={showPassword ? "Masquer le mot de passe" : "Voir le mot de passe"}
-              onClick={() => setShowPassword((current) => !current)}
-              className="absolute inset-y-0 right-0 flex w-11 items-center justify-center text-secondary transition hover:text-primary"
-            >
-              {showPassword ? <EyeOff size={18} aria-hidden="true" /> : <Eye size={18} aria-hidden="true" />}
-            </button>
-          </span>
+          <Input
+            type="password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            autoComplete={mode === "login" ? "current-password" : "new-password"}
+          />
         </label>
       )}
       {mode === "signup" && (
@@ -245,12 +283,11 @@ export function AuthForm({ mode }: AuthFormProps) {
           </span>
         </label>
       )}
-      <Button type="submit" className="w-full" disabled={isLoading}>
-        {isLoading && "Veuillez patienter..."}
-        {!isLoading && mode === "login" && "Se connecter"}
-        {!isLoading && mode === "signup" && "Creer mon compte"}
-        {!isLoading && mode === "forgot" && "Recevoir le lien"}
-        {!isLoading && mode === "reset" && "Changer le mot de passe"}
+      <Button type="submit" className="w-full" isLoading={isLoading} loadingLabel="Veuillez patienter...">
+        {mode === "login" && "Se connecter"}
+        {mode === "signup" && "Creer mon compte"}
+        {mode === "forgot" && "Recevoir le lien"}
+        {mode === "reset" && "Changer le mot de passe"}
       </Button>
       {message && (
         <p
