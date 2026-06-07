@@ -3,8 +3,8 @@ import { BrandLogo } from "@/components/brand-logo";
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-primary/10 bg-primary py-8 text-white">
-      <div className="mx-auto flex max-w-7xl flex-col gap-5 px-6 text-sm md:flex-row md:items-center md:justify-between">
+    <footer className="border-t border-primary/10 bg-primary py-9 text-white">
+      <div className="section-shell flex flex-col gap-6 text-sm md:flex-row md:items-center md:justify-between">
         <div>
           <Link href="/" aria-label="Accueil Artisan Gestion">
             <BrandLogo variant="dark" className="w-32" />
@@ -14,10 +14,10 @@ export function SiteFooter() {
             © {new Date().getFullYear()} Artisan Gestion. Tous droits réservés.
           </p>
         </div>
-        <nav className="flex flex-wrap gap-4 text-white/75">
-          <Link href="/mentions-legales">Mentions legales</Link>
-          <Link href="/cgu">CGU</Link>
-          <Link href="/politique-confidentialite">Confidentialite</Link>
+        <nav className="flex flex-wrap gap-x-5 gap-y-3 text-white/75">
+          <Link className="transition hover:text-accent" href="/mentions-legales">Mentions legales</Link>
+          <Link className="transition hover:text-accent" href="/cgu">CGU</Link>
+          <Link className="transition hover:text-accent" href="/politique-confidentialite">Confidentialite</Link>
         </nav>
       </div>
     </footer>

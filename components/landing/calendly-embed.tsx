@@ -3,7 +3,7 @@ export function CalendlyEmbed() {
 
   if (!url) {
     return (
-      <div className="flex h-[520px] items-center justify-center rounded-md border border-dashed border-white/30 text-center text-sm text-white/70">
+      <div className="flex h-[680px] items-center justify-center rounded-md border border-dashed border-white/30 text-center text-sm text-white/70 lg:h-[760px]">
         Configurez NEXT_PUBLIC_CALENDLY_URL pour afficher le calendrier.
       </div>
     );
@@ -13,7 +13,7 @@ export function CalendlyEmbed() {
     <iframe
       src={url}
       title="Calendly Artisan Gestion"
-      className="h-[520px] w-full rounded-md bg-white"
+      className="h-[680px] w-full rounded-md bg-white lg:h-[760px]"
     />
   );
 }

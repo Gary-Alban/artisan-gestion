@@ -39,6 +39,7 @@ body {
   background: var(--page);
   color: var(--foreground);
   font-family: var(--font-dm-sans), system-ui, sans-serif;
+  text-rendering: optimizeLegibility;
 }
 
 a {
@@ -122,6 +123,107 @@ textarea {
   }
 }
 
+@keyframes sheen {
+  0% {
+    transform: translateX(-130%) skewX(-18deg);
+  }
+
+  100% {
+    transform: translateX(230%) skewX(-18deg);
+  }
+}
+
+@keyframes pulse-line {
+  0%,
+  100% {
+    opacity: 0.45;
+    transform: scaleX(0.28);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+.section-shell {
+  width: min(100% - 3rem, 80rem);
+  margin-inline: auto;
+}
+
+.section-padding {
+  padding-block: clamp(5.5rem, 8vw, 8rem);
+}
+
+.section-padding-lg {
+  padding-block: clamp(6.5rem, 9vw, 9.5rem);
+}
+
+.section-kicker {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.premium-card {
+  border: 1px solid color-mix(in srgb, var(--primary) 10%, transparent);
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 18px 50px rgba(15, 38, 64, 0.07);
+  transition:
+    transform 260ms ease,
+    border-color 260ms ease,
+    box-shadow 260ms ease,
+    background-color 260ms ease;
+}
+
+.premium-card:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--accent) 55%, transparent);
+  box-shadow: 0 24px 70px rgba(15, 38, 64, 0.12);
+}
+
+.premium-action {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.premium-action::after {
+  content: "";
+  position: absolute;
+  inset-block: -40%;
+  left: 0;
+  z-index: -1;
+  width: 35%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.32), transparent);
+  opacity: 0;
+  transform: translateX(-130%) skewX(-18deg);
+}
+
+.premium-action:hover::after {
+  opacity: 1;
+  animation: sheen 900ms ease;
+}
+
+.accent-rule {
+  position: relative;
+}
+
+.accent-rule::after {
+  content: "";
+  position: absolute;
+  bottom: -1.1rem;
+  left: 0;
+  width: 4.5rem;
+  height: 2px;
+  border-radius: 999px;
+  background: var(--accent);
+  transform-origin: left;
+  animation: pulse-line 4.8s ease-in-out infinite;
+}
+
 .animate-reveal-up {
   animation: reveal-up 700ms ease-out both;
 }
@@ -167,6 +269,12 @@ textarea {
   .animate-timeline-progress {
     animation-name: timeline-progress;
     transform-origin: left;
+  }
+}
+
+@media (max-width: 640px) {
+  .section-shell {
+    width: min(100% - 2rem, 80rem);
   }
 }
 
