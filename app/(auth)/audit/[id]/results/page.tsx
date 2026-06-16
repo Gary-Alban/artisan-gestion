@@ -196,9 +196,6 @@ export default async function ResultsPage({
   const coefByQuestion = new Map(
     allResponses.map((r) => [r.question_id, r.coef]),
   );
-  const categoryById = new Map(
-    ((categories ?? []) as Category[]).map((category) => [category.id, category.name]),
-  );
 
   return (
     <main className="min-h-screen bg-page">
@@ -339,11 +336,10 @@ export default async function ResultsPage({
             </div>
           </div>
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[820px] text-left text-sm">
+            <table className="w-full min-w-[720px] text-left text-sm">
               <thead className="bg-primary/5 text-xs font-semibold uppercase tracking-[0.08em] text-primary">
                 <tr>
-                  <th className="px-6 py-3">Categorie</th>
-                  <th className="px-4 py-3">Question</th>
+                  <th className="px-6 py-3">Question</th>
                   <th className="px-4 py-3 text-center">Reponse</th>
                   <th className="px-6 py-3 text-center">Risque</th>
                 </tr>
@@ -354,10 +350,7 @@ export default async function ResultsPage({
 
                   return (
                     <tr key={question.id} className="bg-white transition hover:bg-primary/5">
-                      <td className="px-6 py-4 align-top font-semibold text-primary">
-                        {categoryById.get(question.category_id)}
-                      </td>
-                      <td className="px-4 py-4 align-top leading-6">{question.text}</td>
+                      <td className="px-6 py-4 align-top leading-6">{question.text}</td>
                       <td className="px-4 py-4 text-center align-top">
                         <span className="inline-flex min-w-9 justify-center rounded-full bg-primary/5 px-3 py-1 font-semibold text-primary">
                           {coef ?? "-"}
