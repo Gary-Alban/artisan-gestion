@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import {
   AlertTriangle,
@@ -299,13 +300,15 @@ export default function HomePage() {
       <section className="section-padding-lg">
         <div className="section-shell grid gap-16 lg:grid-cols-[420px_1fr] lg:items-center">
           <div className="animate-reveal-soft relative overflow-hidden bg-primary p-8 text-white shadow-2xl shadow-primary/15 transition duration-300 hover:-translate-y-1 hover:shadow-primary/20">
-            <div className="flex aspect-[4/5] items-start justify-start bg-white/8 p-8">
-              <div>
-                <p className="font-serif text-7xl text-accent">GA</p>
-                <p className="section-kicker mt-3 text-white/62">
-                  Photo à ajouter
-                </p>
-              </div>
+            <div className="relative aspect-[4/5] overflow-hidden bg-white/8">
+              <Image
+                src="/gary-alban-consulting.png"
+                alt="Portrait de Gary-Alban Maravilha"
+                fill
+                sizes="(min-width: 1024px) 420px, 100vw"
+                className="object-cover object-[50%_24%]"
+                priority
+              />
             </div>
             <div className="mt-6 border-l-4 border-accent pl-5">
               <p className="section-kicker">
@@ -322,10 +325,24 @@ export default function HomePage() {
             <h2 className="mt-4 max-w-2xl font-serif text-4xl leading-tight text-primary">
               Gary-Alban vous accompagne avant, pendant et après l'audit
             </h2>
-            <p className="mt-6 max-w-3xl text-lg leading-8 text-secondary">
-              Présentation à compléter par Gary-Alban : expérience, approche du conseil,
-              typologie de projets accompagnés et valeur ajoutée de l'audit.
-            </p>
+            <div className="mt-6 max-w-3xl space-y-5 text-lg leading-8 text-secondary">
+              <p>
+                Après des études de droit des affaires et de sciences de gestion, j’ai évolué
+                pendant près de dix ans dans des fonctions de direction et de gestion financière.
+                Entrepreneur dans l’âme, j’ai ensuite repris et développé une boulangerie avec
+                mon épouse avant de la revendre avec succès.
+              </p>
+              <p>
+                Cette expérience m’a permis de constater que de nombreux artisans et commerçants
+                rencontraient des difficultés dans le pilotage de leur activité : suivi des marges,
+                gestion des équipes, analyse des résultats ou encore optimisation de la rentabilité.
+              </p>
+              <p>
+                J’ai donc créé Artisan Gestion pour leur apporter un accompagnement concret, issu
+                du terrain, afin de les aider à mieux gérer leur entreprise, sécuriser leur
+                développement et atteindre leurs objectifs.
+              </p>
+            </div>
             <div className="mt-10 grid gap-5 sm:grid-cols-3">
               {["Échange de cadrage", "Audit structuré", "Conseil personnalisé"].map((item) => (
                 <div key={item} className="border-t-2 border-accent pt-4 transition duration-300 hover:-translate-y-0.5">

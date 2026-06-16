@@ -275,7 +275,7 @@ export default async function ResultsPage({
                 </h2>
               </div>
               <p className="text-sm text-secondary">
-                Contribution ponderee au score final
+                Lecture des scores par theme
               </p>
             </div>
             <div className="mt-6 grid gap-3">
@@ -339,13 +339,12 @@ export default async function ResultsPage({
             </div>
           </div>
           <div className="overflow-x-auto">
-            <table className="w-full min-w-[920px] text-left text-sm">
+            <table className="w-full min-w-[820px] text-left text-sm">
               <thead className="bg-primary/5 text-xs font-semibold uppercase tracking-[0.08em] text-primary">
                 <tr>
                   <th className="px-6 py-3">Categorie</th>
                   <th className="px-4 py-3">Question</th>
                   <th className="px-4 py-3 text-center">Reponse</th>
-                  <th className="px-4 py-3 text-center">Poids</th>
                   <th className="px-6 py-3 text-center">Risque</th>
                 </tr>
               </thead>
@@ -364,7 +363,6 @@ export default async function ResultsPage({
                           {coef ?? "-"}
                         </span>
                       </td>
-                      <td className="px-4 py-4 text-center align-top">{question.weight}</td>
                       <td className="px-6 py-4 text-center align-top">
                         <RiskBadge coef={coef} />
                       </td>

@@ -15,9 +15,9 @@ export function SiteFooter() {
           </p>
         </div>
         <nav className="flex flex-wrap gap-x-5 gap-y-3 text-white/75">
-          <Link className="transition hover:text-accent" href="/mentions-legales">Mentions legales</Link>
-          <Link className="transition hover:text-accent" href="/cgu">CGU</Link>
-          <Link className="transition hover:text-accent" href="/politique-confidentialite">Confidentialite</Link>
+          <Link className="transition hover:text-accent" href="/mentions-legales">Mentions légales</Link>
+          <Link className="transition hover:text-accent" href="/cgu">CGV / CGU</Link>
+          <Link className="transition hover:text-accent" href="/politique-confidentialite">Confidentialité</Link>
         </nav>
       </div>
     </footer>

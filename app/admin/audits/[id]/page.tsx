@@ -161,7 +161,7 @@ export default async function AdminAuditDetailPage({
         </div>
         <div className="mt-7 grid gap-4">
           {scores.categoryScores.map((item) => (
-            <CategoryScoreBar key={item.category.id} item={item} />
+            <CategoryScoreBar key={item.category.id} item={item} showWeight />
           ))}
         </div>
       </Card>

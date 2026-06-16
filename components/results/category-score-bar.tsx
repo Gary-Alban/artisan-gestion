@@ -8,8 +8,15 @@ function scoreTone(score: number) {
   return "bg-teal";
 }
 
-export function CategoryScoreBar({ item }: { item: CategoryScore }) {
+export function CategoryScoreBar({
+  item,
+  showWeight = false,
+}: {
+  item: CategoryScore;
+  showWeight?: boolean;
+}) {
   const width = Math.max(0, Math.min(100, item.scorePercent));
+  const progressText = `${item.answered}/${item.total} reponses`;
 
   return (
     <div className="rounded-md border border-primary/10 bg-white p-4">
@@ -17,7 +24,9 @@ export function CategoryScoreBar({ item }: { item: CategoryScore }) {
         <div>
           <span className="font-semibold leading-tight text-primary">{item.category.name}</span>
           <span className="mt-1 block text-xs text-secondary">
-            {item.answered}/{item.total} reponses - poids {item.category.weight_percent}%
+            {showWeight
+              ? `${progressText} - poids ${item.category.weight_percent}%`
+              : progressText}
           </span>
         </div>
         <span className="rounded-full bg-primary/5 px-3 py-1 text-sm font-semibold text-primary">
