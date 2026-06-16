@@ -1,5 +1,6 @@
 export function CalendlyEmbed() {
-  const url = process.env.NEXT_PUBLIC_CALENDLY_URL;
+  const url =
+    process.env.NEXT_PUBLIC_CALENDLY_URL ?? "https://calendly.com/garyalban/30min";
 
   if (!url) {
     return (
