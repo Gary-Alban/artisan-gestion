@@ -16,6 +16,7 @@ import {
 import { createClient } from "@/lib/supabase/server";
 import type { Audit, Profile } from "@/lib/types";
 import { BrandLogo } from "@/components/brand-logo";
+import { DeleteAuditButton } from "@/components/delete-audit-button";
 import { LogoutButton } from "@/components/logout-button";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -326,47 +327,56 @@ export default async function DashboardPage() {
                   : Math.max(0, Math.min(100, Math.round(audit.final_score)));
 
               return (
-                <Link key={audit.id} href={`/audit/${audit.id}`} className="group">
-                  <Card className="overflow-hidden p-0 transition duration-200 hover:-translate-y-0.5 hover:border-accent hover:shadow-md">
-                    <div className="grid gap-0 lg:grid-cols-[minmax(0,1fr)_220px]">
-                      <div className="flex gap-4 p-5 sm:p-6">
-                        <div className="flex size-12 shrink-0 items-center justify-center rounded-lg bg-primary/5 text-primary">
-                          <FileText size={22} />
+                <Card
+                  key={audit.id}
+                  className="overflow-hidden p-0 transition duration-200 hover:-translate-y-0.5 hover:border-accent hover:shadow-md"
+                >
+                  <div className="grid gap-0 lg:grid-cols-[minmax(0,1fr)_260px]">
+                    <Link
+                      href={`/audit/${audit.id}`}
+                      className="group flex gap-4 p-5 transition hover:bg-primary/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent sm:p-6"
+                    >
+                      <div className="flex size-12 shrink-0 items-center justify-center rounded-lg bg-primary/5 text-primary">
+                        <FileText size={22} />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <div className="flex flex-wrap items-center gap-3">
+                          <h3 className="min-w-0 font-serif text-2xl leading-tight text-primary">
+                            {audit.business_name || "Fonds sans nom"}
+                          </h3>
+                          <span
+                            className={
+                              audit.status === "completed"
+                                ? "inline-flex items-center gap-1.5 rounded-md bg-teal/10 px-2.5 py-1 text-xs font-semibold text-teal"
+                                : "inline-flex items-center gap-1.5 rounded-md bg-accent/15 px-2.5 py-1 text-xs font-semibold text-primary"
+                            }
+                          >
+                            {audit.status === "completed" ? (
+                              <CheckCircle2 size={14} />
+                            ) : (
+                              <Clock3 size={14} />
+                            )}
+                            {audit.status === "completed" ? "Terminé" : "En cours"}
+                          </span>
                         </div>
-                        <div className="min-w-0 flex-1">
-                          <div className="flex flex-wrap items-center gap-3">
-                            <h3 className="min-w-0 font-serif text-2xl leading-tight text-primary">
-                              {audit.business_name || "Fonds sans nom"}
-                            </h3>
-                            <span
-                              className={
-                                audit.status === "completed"
-                                  ? "inline-flex items-center gap-1.5 rounded-md bg-teal/10 px-2.5 py-1 text-xs font-semibold text-teal"
-                                  : "inline-flex items-center gap-1.5 rounded-md bg-accent/15 px-2.5 py-1 text-xs font-semibold text-primary"
-                              }
-                            >
-                              {audit.status === "completed" ? (
-                                <CheckCircle2 size={14} />
-                              ) : (
-                                <Clock3 size={14} />
-                              )}
-                              {audit.status === "completed" ? "Terminé" : "En cours"}
-                            </span>
-                          </div>
-                          <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-secondary">
-                            <span className="inline-flex items-center gap-2">
-                              <CalendarDays size={16} />
-                              Mis à jour le {formatDate(audit.updated_at)}
-                            </span>
-                            <span className="inline-flex items-center gap-2">
-                              <Gauge size={16} />
-                              {scoreTone.label}
-                            </span>
-                          </div>
+                        <div className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-secondary">
+                          <span className="inline-flex items-center gap-2">
+                            <CalendarDays size={16} />
+                            Mis à jour le {formatDate(audit.updated_at)}
+                          </span>
+                          <span className="inline-flex items-center gap-2">
+                            <Gauge size={16} />
+                            {scoreTone.label}
+                          </span>
                         </div>
                       </div>
+                    </Link>
 
-                      <div className="flex items-center justify-between gap-5 border-t border-primary/10 bg-page/55 p-5 lg:border-l lg:border-t-0">
+                    <div className="flex flex-col justify-between gap-4 border-t border-primary/10 bg-page/55 p-5 lg:border-l lg:border-t-0">
+                      <Link
+                        href={`/audit/${audit.id}`}
+                        className="group flex items-center justify-between gap-5 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                      >
                         <div className="min-w-0 flex-1">
                           <div className="flex items-center justify-between gap-3">
                             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-secondary">
@@ -389,10 +399,16 @@ export default async function DashboardPage() {
                           className="shrink-0 text-primary/40 transition group-hover:translate-x-1 group-hover:text-accent"
                           size={22}
                         />
+                      </Link>
+                      <div className="border-t border-primary/10 pt-4">
+                        <DeleteAuditButton
+                          auditId={audit.id}
+                          auditName={audit.business_name || "Fonds sans nom"}
+                        />
                       </div>
                     </div>
-                  </Card>
-                </Link>
+                  </div>
+                </Card>
               );
             })}
             {items.length === 0 && (

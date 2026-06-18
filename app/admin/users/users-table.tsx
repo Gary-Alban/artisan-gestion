@@ -1,9 +1,11 @@
 "use client";
 
-import { useMemo, useState, useTransition } from "react";
-import { Search } from "lucide-react";
-import { updateUserActive } from "@/app/admin/actions";
+import { useEffect, useMemo, useState, useTransition } from "react";
+import { useRouter } from "next/navigation";
+import { Search, Trash2 } from "lucide-react";
+import { deleteUserAccount, updateUserActive } from "@/app/admin/actions";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
 import {
@@ -33,6 +35,7 @@ function formatDate(value: string) {
 }
 
 export function UsersTable({ users }: { users: AdminUserRow[] }) {
+  const router = useRouter();
   const [query, setQuery] = useState("");
   const [items, setItems] = useState(users);
   const [message, setMessage] = useState<string | null>(null);
@@ -44,6 +47,10 @@ export function UsersTable({ users }: { users: AdminUserRow[] }) {
     if (!normalized) return items;
     return items.filter((user) => user.email.toLowerCase().includes(normalized));
   }, [items, query]);
+
+  useEffect(() => {
+    setItems(users);
+  }, [users]);
 
   function toggleUser(profileId: string, nextValue: boolean) {
     const previousItems = items;
@@ -62,6 +69,37 @@ export function UsersTable({ users }: { users: AdminUserRow[] }) {
       }
       setMessage(result.message);
       setPendingId(null);
+      if (result.ok) router.refresh();
+    });
+  }
+
+  function deleteUser(profileId: string, email: string, isAdmin: boolean) {
+    if (isAdmin) {
+      setMessage("Impossible de supprimer un compte administrateur depuis ce panneau.");
+      return;
+    }
+
+    const confirmed = window.confirm(
+      `Supprimer definitivement ${email} ? Son compte et tous ses audits seront supprimes.`,
+    );
+
+    if (!confirmed) return;
+
+    const previousItems = items;
+    setItems((current) => current.filter((user) => user.id !== profileId));
+    setPendingId(profileId);
+    setMessage(null);
+
+    startTransition(async () => {
+      const result = await deleteUserAccount(profileId);
+
+      if (!result.ok) {
+        setItems(previousItems);
+      }
+
+      setMessage(result.message);
+      setPendingId(null);
+      if (result.ok) router.refresh();
     });
   }
 
@@ -98,6 +136,7 @@ export function UsersTable({ users }: { users: AdminUserRow[] }) {
             <TableHead>Statut</TableHead>
             <TableHead className="text-center">Audits</TableHead>
             <TableHead className="text-right">Activation</TableHead>
+            <TableHead className="text-right">Actions</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -126,11 +165,27 @@ export function UsersTable({ users }: { users: AdminUserRow[] }) {
                   onCheckedChange={(checked) => toggleUser(user.id, checked)}
                 />
               </TableCell>
+              <TableCell className="text-right">
+                <Button
+                  variant="ghost"
+                  disabled={user.is_admin || (isPending && pendingId === user.id)}
+                  onClick={() => deleteUser(user.id, user.email, user.is_admin)}
+                  className="min-h-9 px-3 text-red-700 hover:bg-red-50 hover:text-red-800"
+                  title={
+                    user.is_admin
+                      ? "Les comptes administrateurs sont proteges"
+                      : "Supprimer ce compte et ses audits"
+                  }
+                >
+                  <Trash2 size={16} />
+                  Supprimer
+                </Button>
+              </TableCell>
             </TableRow>
           ))}
           {filteredUsers.length === 0 && (
             <TableRow>
-              <TableCell colSpan={5} className="text-center">
+              <TableCell colSpan={6} className="text-center">
                 Aucun utilisateur ne correspond a cette recherche.
               </TableCell>
             </TableRow>
